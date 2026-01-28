@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Colors - Space Theme -->
+    <color name="primary">#1A237E</color>
+    <color name="primary_dark">#0D1642</color>
+    <color name="primary_light">#3949AB</color>
+
+    <!-- Accent Colors -->
+    <color name="accent">#7C4DFF</color>
+    <color name="accent_light">#B388FF</color>
+
+    <!-- Background Colors -->
+    <color name="background_dark">#121212</color>
+    <color name="background_light">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="correct_green">#4CAF50</color>
+    <color name="correct_green_light">#E8F5E9</color>
+    <color name="incorrect_red">#F44336</color>
+    <color name="incorrect_red_light">#FFEBEE</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Level Colors -->
+    <color name="level1">#4CAF50</color>
+    <color name="level2">#8BC34A</color>
+    <color name="level3">#FFC107</color>
+    <color name="level4">#FF9800</color>
+    <color name="level5">#F44336</color>
+
+    <!-- Category Colors -->
+    <color name="category_space">#3F51B5</color>
+    <color name="category_physics">#9C27B0</color>
+    <color name="category_chemistry">#00BCD4</color>
+    <color name="category_biology">#4CAF50</color>
+    <color name="category_earth">#795548</color>
+</resources>

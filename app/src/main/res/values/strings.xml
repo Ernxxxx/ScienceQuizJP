@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">サイエンスクイズ</string>
+
+    <!-- Main Activity -->
+    <string name="main_title">サイエンスクイズ</string>
+    <string name="main_subtitle">宇宙・科学の世界へようこそ</string>
+    <string name="select_level">レベルを選択</string>
+    <string name="level_1">レベル1（初級）</string>
+    <string name="level_2">レベル2（基礎）</string>
+    <string name="level_3">レベル3（中級）</string>
+    <string name="level_4">レベル4（上級）</string>
+    <string name="level_5">レベル5（超難問）</string>
+    <string name="start_quiz">クイズスタート</string>
+    <string name="total_questions">全%d問収録</string>
+
+    <!-- Quiz Activity -->
+    <string name="question_number">第%d問</string>
+    <string name="set_progress">セット %d/3</string>
+    <string name="score_display">正解: %1$d / %2$d</string>
+    <string name="category_label">カテゴリ: %s</string>
+    <string name="level_label">レベル: %d</string>
+    <string name="answer_button">回答する</string>
+    <string name="reset_button">リセット</string>
+    <string name="select_answer_warning">選択肢を選んでください</string>
+
+    <!-- Result Activity -->
+    <string name="result_correct">正解!</string>
+    <string name="result_incorrect">不正解…</string>
+    <string name="correct_answer_label">正解:</string>
+    <string name="explanation_label">解説</string>
+    <string name="next_question">次の問題へ</string>
+    <string name="back_to_quiz">戻る</string>
+
+    <!-- Set Result Activity -->
+    <string name="set_result_title">セット結果</string>
+    <string name="set_score">%d / 3 正解</string>
+    <string name="message_perfect">パーフェクト! 素晴らしい!</string>
+    <string name="message_great">よくできました!</string>
+    <string name="message_good">まずまずです!</string>
+    <string name="message_try_again">もう少し頑張りましょう!</string>
+    <string name="next_set">次のセットへ</string>
+    <string name="back_to_home">ホームに戻る</string>
+    <string name="no_more_questions">このレベルの問題は終了です</string>
+
+    <!-- Categories -->
+    <string name="category_space">宇宙</string>
+    <string name="category_physics">物理</string>
+    <string name="category_chemistry">化学</string>
+    <string name="category_biology">生物</string>
+    <string name="category_earth">地学</string>
+
+    <!-- Reset Dialog -->
+    <string name="reset_confirm_title">リセット確認</string>
+    <string name="reset_confirm_message">スコアと進捗をリセットしますか?</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+</resources>
