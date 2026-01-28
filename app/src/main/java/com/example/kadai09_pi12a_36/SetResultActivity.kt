@@ -50,14 +50,16 @@ class SetResultActivity : AppCompatActivity() {
         val hasMore = intent.getBooleanExtra(EXTRA_HAS_MORE, false)
 
         // スコア表示
-        tvSetScore.text = "$setCorrect/3"
+        val questionsPerSet = QuizSession.QUESTIONS_PER_SET
+        tvSetScore.text = "$setCorrect/$questionsPerSet"
         tvTotalScore.text = "累計: $totalCorrect / $totalAnswered 正解"
 
         // スコアに応じた色とメッセージ
-        val (color, message) = when (setCorrect) {
-            3 -> Pair(R.color.correct_green, getString(R.string.message_perfect))
-            2 -> Pair(R.color.level2, getString(R.string.message_great))
-            1 -> Pair(R.color.level3, getString(R.string.message_good))
+        val percentage = (setCorrect.toFloat() / questionsPerSet * 100).toInt()
+        val (color, message) = when {
+            percentage >= 100 -> Pair(R.color.correct_green, getString(R.string.message_perfect))
+            percentage >= 70 -> Pair(R.color.level2, getString(R.string.message_great))
+            percentage >= 40 -> Pair(R.color.level3, getString(R.string.message_good))
             else -> Pair(R.color.incorrect_red, getString(R.string.message_try_again))
         }
 

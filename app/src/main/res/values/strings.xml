@@ -16,7 +16,7 @@
 
     <!-- Quiz Activity -->
     <string name="question_number">第%d問</string>
-    <string name="set_progress">セット %d/3</string>
+    <string name="set_progress">問題 %1$d / %2$d</string>
     <string name="score_display">正解: %1$d / %2$d</string>
     <string name="category_label">カテゴリ: %s</string>
     <string name="level_label">レベル: %d</string>
@@ -34,7 +34,7 @@
 
     <!-- Set Result Activity -->
     <string name="set_result_title">セット結果</string>
-    <string name="set_score">%d / 3 正解</string>
+    <string name="set_score">%1$d / %2$d 正解</string>
     <string name="message_perfect">パーフェクト! 素晴らしい!</string>
     <string name="message_great">よくできました!</string>
     <string name="message_good">まずまずです!</string>

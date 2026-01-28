@@ -1055,7 +1055,7 @@
     {"id":1053,"question":"電位の単位は？","choices":["N","C","V（ボルト）","A"],"answerIndex":2,"level":1,"category":"物理","explanation":"ボルト（V）です。"},
     {"id":1054,"question":"等電位面と電気力線の関係は？","choices":["平行","直交","同一","無関係"],"answerIndex":1,"level":3,"category":"物理","explanation":"電気力線は等電位面に垂直です。"},
     {"id":1055,"question":"電気双極子とは？","choices":["同じ電荷が2つ","等量異符号の電荷の組","中性の粒子","電荷がない"],"answerIndex":1,"level":3,"category":"物理","explanation":"+qと-qが近接した配置です。"},
-    {"id":1056,"question":"電気双極子モーメントの向きは？","choices":"[\"正から負\",\"負から正\",\"ランダム\",\"なし\"]","answerIndex":1,"level":4,"category":"物理","explanation":"負電荷から正電荷の向きです。"},
+    {"id":1056,"question":"電気双極子モーメントの向きは？","choices":["正から負","負から正","ランダム","なし"],"answerIndex":1,"level":4,"category":"物理","explanation":"負電荷から正電荷の向きです。"},
     {"id":1057,"question":"ガウスの法則は何を述べる？","choices":["磁場と電流の関係","閉曲面を貫く電束は内部電荷に比例","光の屈折","熱伝導"],"answerIndex":1,"level":4,"category":"物理","explanation":"電場の発散は電荷密度に比例します。"},
     {"id":1058,"question":"電束密度Dの単位は？","choices":["V/m","C/m²","N","A"],"answerIndex":1,"level":4,"category":"物理","explanation":"C/m²です。"},
     {"id":1059,"question":"導体球の内部電場は？","choices":["最大","ゼロ","一定","変動"],"answerIndex":1,"level":3,"category":"物理","explanation":"静電平衡状態では内部電場はゼロです。"},

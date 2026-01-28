@@ -2,6 +2,7 @@ package com.example.kadai09_pi12a_36
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -31,6 +32,7 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var radioChoice4: RadioButton
     private lateinit var btnAnswer: MaterialButton
     private lateinit var btnReset: MaterialButton
+    private lateinit var btnBack: ImageButton
 
     private lateinit var repository: QuizRepository
     private lateinit var session: QuizSession
@@ -91,6 +93,7 @@ class QuizActivity : AppCompatActivity() {
         radioChoice4 = findViewById(R.id.radioChoice4)
         btnAnswer = findViewById(R.id.btnAnswer)
         btnReset = findViewById(R.id.btnReset)
+        btnBack = findViewById(R.id.btnBack)
     }
 
     private fun initSession() {
@@ -133,6 +136,21 @@ class QuizActivity : AppCompatActivity() {
         btnReset.setOnClickListener {
             showResetConfirmDialog()
         }
+
+        btnBack.setOnClickListener {
+            showExitConfirmDialog()
+        }
+    }
+
+    private fun showExitConfirmDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("終了確認")
+            .setMessage("クイズを終了しますか？\n進捗は保存されません。")
+            .setPositiveButton(R.string.yes) { _, _ ->
+                finish()
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
     }
 
     private fun displayCurrentQuestion() {
@@ -141,7 +159,7 @@ class QuizActivity : AppCompatActivity() {
         radioGroupChoices.clearCheck()
 
         tvQuestionNumber.text = getString(R.string.question_number, session.totalAnswered + 1)
-        tvSetProgress.text = getString(R.string.set_progress, session.setAnswered + 1)
+        tvSetProgress.text = getString(R.string.set_progress, session.setAnswered + 1, QuizSession.QUESTIONS_PER_SET)
         tvScore.text = getString(R.string.score_display, session.totalCorrect, session.totalAnswered)
         tvCategory.text = getString(R.string.category_label, question.category)
         tvLevel.text = getString(R.string.level_label, question.level)
