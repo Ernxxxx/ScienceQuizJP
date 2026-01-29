@@ -35,4 +35,16 @@
                 android:endColor="#00000000" />
         </shape>
     </item>
+    <!-- Subtle blue glow center -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="500dp"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:startColor="#10448AFF"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
 </layer-list>

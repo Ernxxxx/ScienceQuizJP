@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/space_background"
     android:fillViewport="true"
     tools:context=".SetResultActivity">
 
@@ -19,23 +19,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:text="@string/set_result_title"
+            android:layout_marginTop="60dp"
+            android:text="セット結果"
             android:textColor="@color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:shadowColor="#7C4DFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="20" />
 
         <!-- Result Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp">
+            android:layout_marginTop="36dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/cosmic_card"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="40dp">
@@ -43,8 +50,9 @@
                 <!-- Score Circle -->
                 <LinearLayout
                     android:id="@+id/layoutScoreCircle"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/star_circle"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -52,16 +60,17 @@
                         android:id="@+id/tvSetScore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="48sp"
+                        android:textSize="42sp"
                         android:textStyle="bold"
-                        tools:text="3/3" />
+                        android:textColor="#18FFFF"
+                        tools:text="8/10" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="正解"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="16sp" />
+                        android:textColor="#B0BEC5"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Message -->
@@ -69,21 +78,25 @@
                     android:id="@+id/tvMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="28dp"
+                    android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="パーフェクト!" />
+                    android:letterSpacing="0.05"
+                    tools:text="よくできました!" />
 
                 <!-- Total Score -->
                 <TextView
                     android:id="@+id/tvTotalScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="16sp"
-                    tools:text="累計: 6 / 9 正解" />
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/space_badge"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="12dp"
+                    android:textColor="#B0BEC5"
+                    android:textSize="14sp"
+                    tools:text="累計: 16 / 20 正解" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -93,27 +106,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:backgroundTint="@color/white"
-            android:paddingVertical="16dp"
-            android:text="@string/next_set"
-            android:textColor="@color/primary"
-            android:textSize="18sp"
+            android:background="@drawable/space_button_main"
+            android:paddingVertical="18dp"
+            android:text="次のセットへ"
+            android:textColor="@color/white"
+            android:textSize="17sp"
             android:textStyle="bold"
-            app:cornerRadius="12dp" />
+            app:backgroundTint="@null"
+            app:cornerRadius="16dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBackHome"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="24dp"
-            android:paddingVertical="14dp"
-            android:text="@string/back_to_home"
-            android:textColor="@color/white"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/space_badge"
+            android:paddingVertical="16dp"
+            android:text="ホームに戻る"
+            android:textColor="#B0BEC5"
             android:textSize="16sp"
-            app:cornerRadius="12dp"
-            app:strokeColor="@color/white" />
+            app:backgroundTint="@null"
+            app:cornerRadius="16dp" />
 
     </LinearLayout>
 </ScrollView>

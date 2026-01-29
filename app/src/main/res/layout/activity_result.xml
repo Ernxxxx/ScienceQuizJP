@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@drawable/space_background"
     android:fillViewport="true"
     tools:context=".ResultActivity">
 
@@ -15,67 +15,69 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Result Icon/Text -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardResult"
-            android:layout_width="match_parent"
+        <!-- Result Circle -->
+        <LinearLayout
+            android:id="@+id/layoutResultIcon"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/star_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvResultIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="64sp"
+                android:textStyle="bold"
+                tools:text="O" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="32dp">
-
-                <TextView
-                    android:id="@+id/tvResultIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="64sp"
-                    tools:text="○" />
-
-                <TextView
-                    android:id="@+id/tvResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    tools:text="正解!" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:shadowColor="#7C4DFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="15"
+            tools:text="正解!" />
 
         <!-- Correct Answer Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            android:layout_marginTop="36dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/cosmic_card"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/correct_answer_label"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:text="正解"
+                    android:textColor="#B0BEC5"
+                    android:textSize="13sp"
+                    android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/tvCorrectAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/correct_green"
+                    android:textColor="#69F0AE"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:text="B. 木星" />
@@ -87,31 +89,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/cosmic_card"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/explanation_label"
-                    android:textColor="@color/primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="解説"
+                    android:textColor="#18FFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/tvExplanation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:lineSpacingExtra="4dp"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
                     tools:text="木星は太陽系最大の惑星で、地球の約11倍の直径を持ちます。ガス惑星であり、主に水素とヘリウムで構成されています。" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -122,12 +127,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="24dp"
-            android:paddingVertical="16dp"
-            android:text="@string/next_question"
-            android:textSize="18sp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/space_button_main"
+            android:paddingVertical="18dp"
+            android:text="次の問題へ"
+            android:textColor="@color/white"
+            android:textSize="17sp"
             android:textStyle="bold"
-            app:cornerRadius="12dp" />
+            app:backgroundTint="@null"
+            app:cornerRadius="16dp" />
 
     </LinearLayout>
 </ScrollView>

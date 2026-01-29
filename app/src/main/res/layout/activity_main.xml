@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/space_background"
     android:fillViewport="true"
     tools:context=".MainActivity">
 
@@ -16,127 +16,176 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Header -->
+        <!-- Achievement Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="end">
+
+            <ImageButton
+                android:id="@+id/btnAchievement"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/space_badge"
+                android:contentDescription="実績"
+                android:padding="12dp"
+                android:src="@drawable/ic_trophy" />
+        </LinearLayout>
+
+        <!-- Space Logo / Title -->
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="@string/main_title"
             android:textColor="@color/white"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.15"
+            android:shadowColor="#7C4DFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="25" />
 
         <TextView
+            android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/main_subtitle"
-            android:textColor="@color/accent_light"
-            android:textSize="16sp" />
+            android:textColor="#B0BEC5"
+            android:textSize="15sp"
+            android:letterSpacing="0.05" />
 
+        <!-- Question Count Badge -->
         <TextView
             android:id="@+id/tvTotalQuestions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/card_background"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:textColor="@color/primary"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/space_badge"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:textColor="#18FFFF"
             android:textSize="14sp"
-            tools:text="全300問収録" />
+            android:textStyle="bold"
+            tools:text="全2600問収録" />
 
-        <!-- Category Selection -->
+        <!-- Category Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:text="カテゴリを選択"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
 
-        <!-- Category Buttons -->
+        <!-- Category Buttons - Planet Style -->
         <LinearLayout
+            android:id="@+id/layoutCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
+            <!-- Space Category -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCategorySpace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="@color/category_space"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/planet_button_purple"
                 android:paddingVertical="20dp"
                 android:text="宇宙"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="16dp"
+                app:backgroundTint="@null"
+                app:cornerRadius="20dp"
                 app:icon="@android:drawable/star_big_on"
-                app:iconGravity="start"
-                app:iconPadding="12dp" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white" />
 
+            <!-- Physics Category -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCategoryPhysics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="@color/category_physics"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/planet_button_pink"
                 android:paddingVertical="20dp"
                 android:text="物理"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="16dp"
+                app:backgroundTint="@null"
+                app:cornerRadius="20dp"
                 app:icon="@android:drawable/ic_menu_compass"
-                app:iconGravity="start"
-                app:iconPadding="12dp" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white" />
 
+            <!-- Chemistry Category -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCategoryChemistry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="@color/category_chemistry"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/planet_button_cyan"
                 android:paddingVertical="20dp"
                 android:text="化学"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="16dp"
+                app:backgroundTint="@null"
+                app:cornerRadius="20dp"
                 app:icon="@android:drawable/ic_menu_manage"
-                app:iconGravity="start"
-                app:iconPadding="12dp" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white" />
 
+            <!-- Biology Category -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCategoryBiology"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="@color/category_biology"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/planet_button_green"
                 android:paddingVertical="20dp"
                 android:text="生物"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="16dp"
+                app:backgroundTint="@null"
+                app:cornerRadius="20dp"
                 app:icon="@android:drawable/ic_menu_myplaces"
-                app:iconGravity="start"
-                app:iconPadding="12dp" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white" />
 
+            <!-- Earth Category -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCategoryEarth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/category_earth"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/planet_button_orange"
                 android:paddingVertical="20dp"
                 android:text="地学"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="16dp"
+                app:backgroundTint="@null"
+                app:cornerRadius="20dp"
                 app:icon="@android:drawable/ic_menu_mapmode"
-                app:iconGravity="start"
-                app:iconPadding="12dp" />
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white" />
 
         </LinearLayout>
 

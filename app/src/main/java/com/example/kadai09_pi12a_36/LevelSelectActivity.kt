@@ -2,6 +2,9 @@ package com.example.kadai09_pi12a_36
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +14,17 @@ class LevelSelectActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_CATEGORY = "extra_category"
+
+        private val categoryEnglishNames = mapOf(
+            "宇宙" to "SPACE",
+            "物理" to "PHYSICS",
+            "化学" to "CHEMISTRY",
+            "生物" to "BIOLOGY",
+            "地学" to "EARTH"
+        )
     }
 
+    private lateinit var btnBack: ImageButton
     private lateinit var tvCategoryTitle: TextView
     private lateinit var tvCategoryCount: TextView
     private lateinit var tvLevel1Count: TextView
@@ -42,9 +54,11 @@ class LevelSelectActivity : AppCompatActivity() {
         initViews()
         initRepository()
         setupListeners()
+        startAnimations()
     }
 
     private fun initViews() {
+        btnBack = findViewById(R.id.btnBack)
         tvCategoryTitle = findViewById(R.id.tvCategoryTitle)
         tvCategoryCount = findViewById(R.id.tvCategoryCount)
         tvLevel1Count = findViewById(R.id.tvLevel1Count)
@@ -66,7 +80,6 @@ class LevelSelectActivity : AppCompatActivity() {
         val totalInCategory = repository.getQuestionCountByCategory(category)
         tvCategoryCount.text = "このカテゴリ: ${totalInCategory}問"
 
-        // 各レベルの問題数を表示
         tvLevel1Count.text = "${repository.getQuestionCountByCategoryAndLevel(category, 1)}問"
         tvLevel2Count.text = "${repository.getQuestionCountByCategoryAndLevel(category, 2)}問"
         tvLevel3Count.text = "${repository.getQuestionCountByCategoryAndLevel(category, 3)}問"
@@ -75,11 +88,53 @@ class LevelSelectActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        cardLevel1.setOnClickListener { startQuiz(1) }
-        cardLevel2.setOnClickListener { startQuiz(2) }
-        cardLevel3.setOnClickListener { startQuiz(3) }
-        cardLevel4.setOnClickListener { startQuiz(4) }
-        cardLevel5.setOnClickListener { startQuiz(5) }
+        btnBack.setOnClickListener {
+            finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        cardLevel1.setOnClickListener { animateAndStartQuiz(1, it) }
+        cardLevel2.setOnClickListener { animateAndStartQuiz(2, it) }
+        cardLevel3.setOnClickListener { animateAndStartQuiz(3, it) }
+        cardLevel4.setOnClickListener { animateAndStartQuiz(4, it) }
+        cardLevel5.setOnClickListener { animateAndStartQuiz(5, it) }
+    }
+
+    private fun startAnimations() {
+        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        tvCategoryTitle.startAnimation(fadeIn)
+
+        val cards = listOf(cardLevel1, cardLevel2, cardLevel3, cardLevel4, cardLevel5)
+        cards.forEachIndexed { index, card ->
+            card.alpha = 0f
+            card.translationX = 100f
+            card.postDelayed({
+                card.animate()
+                    .alpha(1f)
+                    .translationX(0f)
+                    .setDuration(400)
+                    .setInterpolator(android.view.animation.DecelerateInterpolator())
+                    .start()
+            }, (200 + index * 80).toLong())
+        }
+    }
+
+    private fun animateAndStartQuiz(level: Int, view: View) {
+        view.animate()
+            .scaleX(0.95f)
+            .scaleY(0.95f)
+            .setDuration(100)
+            .withEndAction {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(100)
+                    .withEndAction {
+                        startQuiz(level)
+                    }
+                    .start()
+            }
+            .start()
     }
 
     private fun startQuiz(level: Int) {
@@ -94,5 +149,6 @@ class LevelSelectActivity : AppCompatActivity() {
             putExtra(QuizActivity.EXTRA_LEVEL, level)
         }
         startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

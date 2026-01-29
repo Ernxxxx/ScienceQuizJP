@@ -2,6 +2,8 @@ package com.example.kadai09_pi12a_36
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -10,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.google.android.material.button.MaterialButton
 
 class QuizActivity : AppCompatActivity() {
@@ -17,6 +20,14 @@ class QuizActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_CATEGORY = "extra_category"
         const val EXTRA_LEVEL = "extra_level"
+
+        private val categoryEnglishNames = mapOf(
+            "宇宙" to "SPACE",
+            "物理" to "PHYSICS",
+            "化学" to "CHEMISTRY",
+            "生物" to "BIOLOGY",
+            "地学" to "EARTH"
+        )
     }
 
     private lateinit var tvSetProgress: TextView
@@ -25,6 +36,7 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var tvCategory: TextView
     private lateinit var tvLevel: TextView
     private lateinit var tvQuestion: TextView
+    private lateinit var cardQuestion: CardView
     private lateinit var radioGroupChoices: RadioGroup
     private lateinit var radioChoice1: RadioButton
     private lateinit var radioChoice2: RadioButton
@@ -33,9 +45,14 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var btnAnswer: MaterialButton
     private lateinit var btnReset: MaterialButton
     private lateinit var btnBack: ImageButton
+    private lateinit var btnHint: MaterialButton
 
     private lateinit var repository: QuizRepository
     private lateinit var session: QuizSession
+    private lateinit var achievementManager: AchievementManager
+
+    private var usedHintForCurrentQuestion = false
+    private var hintUsedChoices = mutableListOf<Int>()
 
     private val resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -86,6 +103,7 @@ class QuizActivity : AppCompatActivity() {
         tvCategory = findViewById(R.id.tvCategory)
         tvLevel = findViewById(R.id.tvLevel)
         tvQuestion = findViewById(R.id.tvQuestion)
+        cardQuestion = findViewById(R.id.cardQuestion)
         radioGroupChoices = findViewById(R.id.radioGroupChoices)
         radioChoice1 = findViewById(R.id.radioChoice1)
         radioChoice2 = findViewById(R.id.radioChoice2)
@@ -94,10 +112,12 @@ class QuizActivity : AppCompatActivity() {
         btnAnswer = findViewById(R.id.btnAnswer)
         btnReset = findViewById(R.id.btnReset)
         btnBack = findViewById(R.id.btnBack)
+        btnHint = findViewById(R.id.btnHint)
     }
 
     private fun initSession() {
         repository = QuizRepository(this)
+        achievementManager = AchievementManager(this)
         val category = intent.getStringExtra(EXTRA_CATEGORY) ?: ""
         val level = intent.getIntExtra(EXTRA_LEVEL, 1)
 
@@ -119,6 +139,7 @@ class QuizActivity : AppCompatActivity() {
             val selectedId = radioGroupChoices.checkedRadioButtonId
             if (selectedId == -1) {
                 Toast.makeText(this, R.string.select_answer_warning, Toast.LENGTH_SHORT).show()
+                shakeView(radioGroupChoices)
                 return@setOnClickListener
             }
 
@@ -130,7 +151,7 @@ class QuizActivity : AppCompatActivity() {
                 else -> -1
             }
 
-            checkAnswer(selectedIndex)
+            animateButtonAndCheck(selectedIndex)
         }
 
         btnReset.setOnClickListener {
@@ -140,6 +161,47 @@ class QuizActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             showExitConfirmDialog()
         }
+
+        btnHint.setOnClickListener {
+            useHint()
+        }
+    }
+
+    private fun shakeView(view: android.view.View) {
+        view.animate()
+            .translationX(-10f)
+            .setDuration(50)
+            .withEndAction {
+                view.animate()
+                    .translationX(10f)
+                    .setDuration(50)
+                    .withEndAction {
+                        view.animate()
+                            .translationX(0f)
+                            .setDuration(50)
+                            .start()
+                    }
+                    .start()
+            }
+            .start()
+    }
+
+    private fun animateButtonAndCheck(selectedIndex: Int) {
+        btnAnswer.animate()
+            .scaleX(0.95f)
+            .scaleY(0.95f)
+            .setDuration(100)
+            .withEndAction {
+                btnAnswer.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(100)
+                    .withEndAction {
+                        checkAnswer(selectedIndex)
+                    }
+                    .start()
+            }
+            .start()
     }
 
     private fun showExitConfirmDialog() {
@@ -148,21 +210,66 @@ class QuizActivity : AppCompatActivity() {
             .setMessage("クイズを終了しますか？\n進捗は保存されません。")
             .setPositiveButton(R.string.yes) { _, _ ->
                 finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
             .setNegativeButton(R.string.no, null)
             .show()
     }
 
+    private fun useHint() {
+        if (usedHintForCurrentQuestion) {
+            Toast.makeText(this, "この問題では既にヒントを使用しました", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val question = session.getCurrentQuestion() ?: return
+        val correctIndex = question.answerIndex
+
+        // Find 2 wrong answers to eliminate
+        val wrongIndices = (0..3).filter { it != correctIndex }.shuffled().take(2)
+
+        val choices = listOf(radioChoice1, radioChoice2, radioChoice3, radioChoice4)
+        wrongIndices.forEach { index ->
+            choices[index].apply {
+                alpha = 0.3f
+                isEnabled = false
+                setTextColor(resources.getColor(android.R.color.darker_gray, theme))
+            }
+            hintUsedChoices.add(index)
+        }
+
+        usedHintForCurrentQuestion = true
+        btnHint.isEnabled = false
+        btnHint.alpha = 0.5f
+
+        Toast.makeText(this, "2つの不正解を消去しました", Toast.LENGTH_SHORT).show()
+    }
+
     private fun displayCurrentQuestion() {
         val question = session.getCurrentQuestion() ?: return
 
+        // Reset hint state
+        usedHintForCurrentQuestion = false
+        hintUsedChoices.clear()
+        btnHint.isEnabled = true
+        btnHint.alpha = 1f
+
         radioGroupChoices.clearCheck()
 
-        tvQuestionNumber.text = getString(R.string.question_number, session.totalAnswered + 1)
+        // Reset all choices
+        val choices = listOf(radioChoice1, radioChoice2, radioChoice3, radioChoice4)
+        choices.forEach { choice ->
+            choice.alpha = 1f
+            choice.isEnabled = true
+            choice.setTextColor(resources.getColor(android.R.color.white, theme))
+        }
+
+        val questionNum = String.format("Q.%02d", session.setAnswered + 1)
+        tvQuestionNumber.text = questionNum
         tvSetProgress.text = getString(R.string.set_progress, session.setAnswered + 1, QuizSession.QUESTIONS_PER_SET)
-        tvScore.text = getString(R.string.score_display, session.totalCorrect, session.totalAnswered)
-        tvCategory.text = getString(R.string.category_label, question.category)
-        tvLevel.text = getString(R.string.level_label, question.level)
+        tvScore.text = "正解 ${session.totalCorrect}/${session.totalAnswered}"
+        tvCategory.text = question.category
+        tvLevel.text = "Lv.${question.level}"
         tvQuestion.text = question.question
 
         val labels = listOf("A", "B", "C", "D")
@@ -170,6 +277,24 @@ class QuizActivity : AppCompatActivity() {
         radioChoice2.text = "${labels[1]}. ${question.choices[1]}"
         radioChoice3.text = "${labels[2]}. ${question.choices[2]}"
         radioChoice4.text = "${labels[3]}. ${question.choices[3]}"
+
+        // Animate question card
+        val scaleIn = AnimationUtils.loadAnimation(this, R.anim.scale_in)
+        cardQuestion.startAnimation(scaleIn)
+
+        // Animate choices
+        choices.forEachIndexed { index, choice ->
+            choice.alpha = 0f
+            choice.translationX = 50f
+            choice.postDelayed({
+                choice.animate()
+                    .alpha(1f)
+                    .translationX(0f)
+                    .setDuration(300)
+                    .setInterpolator(android.view.animation.DecelerateInterpolator())
+                    .start()
+            }, (100 + index * 60).toLong())
+        }
     }
 
     private fun checkAnswer(selectedIndex: Int) {
@@ -177,6 +302,19 @@ class QuizActivity : AppCompatActivity() {
         val isCorrect = selectedIndex == question.answerIndex
 
         session.recordAnswer(isCorrect)
+
+        // Track achievements
+        val newAchievements = achievementManager.onQuestionAnswered(
+            isCorrect = isCorrect,
+            category = question.category,
+            usedHint = usedHintForCurrentQuestion
+        )
+
+        // Show achievement notifications
+        newAchievements.forEach { achievement ->
+            showAchievementUnlocked(achievement)
+        }
+
         session.moveToNextQuestion()
 
         val intent = Intent(this, ResultActivity::class.java).apply {
@@ -186,9 +324,25 @@ class QuizActivity : AppCompatActivity() {
             putExtra(ResultActivity.EXTRA_IS_SET_COMPLETE, session.isSetComplete())
         }
         resultLauncher.launch(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    private fun showAchievementUnlocked(achievement: Achievement) {
+        Toast.makeText(
+            this,
+            "${achievement.icon} 実績解除: ${achievement.title}",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun showSetResult() {
+        // Check for perfect set achievement
+        if (session.setCorrect == QuizSession.QUESTIONS_PER_SET) {
+            achievementManager.onPerfectSet()?.let { achievement ->
+                showAchievementUnlocked(achievement)
+            }
+        }
+
         val intent = Intent(this, SetResultActivity::class.java).apply {
             putExtra(SetResultActivity.EXTRA_SET_CORRECT, session.setCorrect)
             putExtra(SetResultActivity.EXTRA_TOTAL_CORRECT, session.totalCorrect)
@@ -196,6 +350,7 @@ class QuizActivity : AppCompatActivity() {
             putExtra(SetResultActivity.EXTRA_HAS_MORE, session.hasMoreQuestions())
         }
         setResultLauncher.launch(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     private fun showNoMoreQuestions() {
@@ -222,6 +377,8 @@ class QuizActivity : AppCompatActivity() {
 
     private fun resetQuiz() {
         session.resetAll()
+        usedHintForCurrentQuestion = false
+        hintUsedChoices.clear()
         val questions = if (session.selectedCategory.isNotEmpty()) {
             repository.getQuestionsByCategoryAndLevel(session.selectedCategory, session.selectedLevel)
         } else {
@@ -239,6 +396,8 @@ class QuizActivity : AppCompatActivity() {
         outState.putInt("totalCorrect", session.totalCorrect)
         outState.putInt("setAnswered", session.setAnswered)
         outState.putInt("setCorrect", session.setCorrect)
+        outState.putBoolean("usedHint", usedHintForCurrentQuestion)
+        outState.putIntegerArrayList("hintUsedChoices", ArrayList(hintUsedChoices))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -248,6 +407,22 @@ class QuizActivity : AppCompatActivity() {
         session.totalCorrect = savedInstanceState.getInt("totalCorrect", 0)
         session.setAnswered = savedInstanceState.getInt("setAnswered", 0)
         session.setCorrect = savedInstanceState.getInt("setCorrect", 0)
+        usedHintForCurrentQuestion = savedInstanceState.getBoolean("usedHint", false)
+        hintUsedChoices = savedInstanceState.getIntegerArrayList("hintUsedChoices")?.toMutableList() ?: mutableListOf()
         displayCurrentQuestion()
+
+        // Restore hint state visually
+        if (usedHintForCurrentQuestion) {
+            btnHint.isEnabled = false
+            btnHint.alpha = 0.5f
+            val choices = listOf(radioChoice1, radioChoice2, radioChoice3, radioChoice4)
+            hintUsedChoices.forEach { index ->
+                choices[index].apply {
+                    alpha = 0.3f
+                    isEnabled = false
+                    setTextColor(resources.getColor(android.R.color.darker_gray, theme))
+                }
+            }
+        }
     }
 }

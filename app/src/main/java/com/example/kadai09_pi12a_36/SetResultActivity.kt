@@ -1,8 +1,8 @@
 package com.example.kadai09_pi12a_36
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +32,7 @@ class SetResultActivity : AppCompatActivity() {
         initViews()
         displayResult()
         setupListeners()
+        startAnimations()
     }
 
     private fun initViews() {
@@ -49,36 +50,24 @@ class SetResultActivity : AppCompatActivity() {
         val totalAnswered = intent.getIntExtra(EXTRA_TOTAL_ANSWERED, 0)
         val hasMore = intent.getBooleanExtra(EXTRA_HAS_MORE, false)
 
-        // スコア表示
         val questionsPerSet = QuizSession.QUESTIONS_PER_SET
         tvSetScore.text = "$setCorrect/$questionsPerSet"
         tvTotalScore.text = "累計: $totalCorrect / $totalAnswered 正解"
 
-        // スコアに応じた色とメッセージ
         val percentage = (setCorrect.toFloat() / questionsPerSet * 100).toInt()
         val (color, message) = when {
-            percentage >= 100 -> Pair(R.color.correct_green, getString(R.string.message_perfect))
-            percentage >= 70 -> Pair(R.color.level2, getString(R.string.message_great))
-            percentage >= 40 -> Pair(R.color.level3, getString(R.string.message_good))
-            else -> Pair(R.color.incorrect_red, getString(R.string.message_try_again))
+            percentage >= 100 -> Pair(R.color.correct_green, "パーフェクト!")
+            percentage >= 70 -> Pair(R.color.accent, "よくできました!")
+            percentage >= 40 -> Pair(R.color.nebula_purple, "まずまずです!")
+            else -> Pair(R.color.incorrect_red, "もう少し頑張ろう!")
         }
-
-        // スコアサークルの背景色を設定
-        val circleDrawable = GradientDrawable().apply {
-            shape = GradientDrawable.OVAL
-            setColor(ContextCompat.getColor(this@SetResultActivity, color))
-            alpha = 30
-        }
-        layoutScoreCircle.background = circleDrawable
 
         tvSetScore.setTextColor(ContextCompat.getColor(this, color))
         tvMessage.text = message
         tvMessage.setTextColor(ContextCompat.getColor(this, color))
 
-        // 次のセットボタンの表示制御
         if (hasMore) {
             btnNextSet.visibility = View.VISIBLE
-            btnNextSet.text = getString(R.string.next_set)
         } else {
             btnNextSet.visibility = View.GONE
         }
@@ -86,13 +75,72 @@ class SetResultActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         btnNextSet.setOnClickListener {
-            setResult(RESULT_OK)
-            finish()
+            animateButton(it) {
+                setResult(RESULT_OK)
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
         }
 
         btnBackHome.setOnClickListener {
-            setResult(RESULT_CANCELED)
-            finish()
+            animateButton(it) {
+                setResult(RESULT_CANCELED)
+                finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+        }
+    }
+
+    private fun animateButton(view: View, onComplete: () -> Unit) {
+        view.animate()
+            .scaleX(0.95f)
+            .scaleY(0.95f)
+            .setDuration(100)
+            .withEndAction {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(100)
+                    .withEndAction(onComplete)
+                    .start()
+            }
+            .start()
+    }
+
+    private fun startAnimations() {
+        val scaleIn = AnimationUtils.loadAnimation(this, R.anim.scale_in)
+        layoutScoreCircle.startAnimation(scaleIn)
+
+        tvMessage.alpha = 0f
+        tvMessage.postDelayed({
+            tvMessage.animate()
+                .alpha(1f)
+                .setDuration(400)
+                .start()
+        }, 400)
+
+        tvTotalScore.alpha = 0f
+        tvTotalScore.postDelayed({
+            tvTotalScore.animate()
+                .alpha(1f)
+                .setDuration(400)
+                .start()
+        }, 500)
+
+        val buttons = listOf(btnNextSet, btnBackHome)
+        buttons.forEachIndexed { index, button ->
+            if (button.visibility == View.VISIBLE) {
+                button.alpha = 0f
+                button.translationY = 30f
+                button.postDelayed({
+                    button.animate()
+                        .alpha(1f)
+                        .translationY(0f)
+                        .setDuration(400)
+                        .setInterpolator(android.view.animation.DecelerateInterpolator())
+                        .start()
+                }, (600 + index * 100).toLong())
+            }
         }
     }
 
@@ -100,5 +148,6 @@ class SetResultActivity : AppCompatActivity() {
     override fun onBackPressed() {
         setResult(RESULT_CANCELED)
         super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

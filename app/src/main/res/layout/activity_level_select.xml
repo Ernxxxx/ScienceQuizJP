@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/space_background"
     android:fillViewport="true"
     tools:context=".LevelSelectActivity">
 
@@ -15,36 +15,57 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Back Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="start">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/space_badge"
+                android:contentDescription="戻る"
+                android:src="@drawable/ic_back_arrow"
+                android:padding="10dp" />
+        </LinearLayout>
+
         <!-- Header -->
         <TextView
             android:id="@+id/tvCategoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold"
+            android:shadowColor="#7C4DFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="20"
             tools:text="宇宙" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="難易度を選択してください"
-            android:textColor="@color/accent_light"
-            android:textSize="16sp" />
+            android:text="難易度を選択"
+            android:textColor="#90FFFFFF"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvCategoryCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/card_background"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/space_badge"
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
-            android:textColor="@color/primary"
-            android:textSize="14sp"
-            tools:text="このカテゴリ: 60問" />
+            android:textColor="#E040FB"
+            android:textSize="13sp"
+            tools:text="このカテゴリ: 520問" />
 
         <!-- Level Cards -->
         <androidx.cardview.widget.CardView
@@ -54,16 +75,17 @@
             android:layout_marginTop="24dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/level1"
+                android:background="@drawable/level_card_1"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="18dp"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -74,32 +96,31 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="レベル 1"
+                        android:text="Lv.1"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="初級 - 基本的な知識"
-                        android:textColor="#E0E0E0"
-                        android:textSize="14sp" />
+                        android:layout_marginTop="2dp"
+                        android:text="初級"
+                        android:textColor="#EEFFFFFF"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvLevel1Count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/card_background"
-                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/count_badge"
+                    android:paddingHorizontal="14dp"
                     android:paddingVertical="6dp"
-                    android:textColor="@color/level1"
-                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
                     android:textStyle="bold"
-                    tools:text="12問" />
+                    tools:text="104問" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -110,16 +131,17 @@
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/level2"
+                android:background="@drawable/level_card_2"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="18dp"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -130,32 +152,31 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="レベル 2"
+                        android:text="Lv.2"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="基礎 - 教科書レベル"
-                        android:textColor="#E0E0E0"
-                        android:textSize="14sp" />
+                        android:layout_marginTop="2dp"
+                        android:text="基礎"
+                        android:textColor="#EEFFFFFF"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvLevel2Count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/card_background"
-                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/count_badge"
+                    android:paddingHorizontal="14dp"
                     android:paddingVertical="6dp"
-                    android:textColor="@color/level2"
-                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
                     android:textStyle="bold"
-                    tools:text="12問" />
+                    tools:text="104問" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -166,16 +187,17 @@
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/level3"
+                android:background="@drawable/level_card_3"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="18dp"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -186,32 +208,31 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="レベル 3"
+                        android:text="Lv.3"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="中級 - 応用問題"
-                        android:textColor="#E0E0E0"
-                        android:textSize="14sp" />
+                        android:layout_marginTop="2dp"
+                        android:text="中級"
+                        android:textColor="#EEFFFFFF"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvLevel3Count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/card_background"
-                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/count_badge"
+                    android:paddingHorizontal="14dp"
                     android:paddingVertical="6dp"
-                    android:textColor="@color/level3"
-                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
                     android:textStyle="bold"
-                    tools:text="12問" />
+                    tools:text="104問" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -222,16 +243,17 @@
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/level4"
+                android:background="@drawable/level_card_4"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="18dp"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -242,32 +264,31 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="レベル 4"
+                        android:text="Lv.4"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="上級 - 専門知識"
-                        android:textColor="#E0E0E0"
-                        android:textSize="14sp" />
+                        android:layout_marginTop="2dp"
+                        android:text="上級"
+                        android:textColor="#EEFFFFFF"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvLevel4Count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/card_background"
-                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/count_badge"
+                    android:paddingHorizontal="14dp"
                     android:paddingVertical="6dp"
-                    android:textColor="@color/level4"
-                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
                     android:textStyle="bold"
-                    tools:text="12問" />
+                    tools:text="104問" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -279,16 +300,17 @@
             android:layout_marginBottom="24dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/level5"
+                android:background="@drawable/level_card_5"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="18dp"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -299,32 +321,31 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="レベル 5"
+                        android:text="Lv.5"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="超難問 - マニア向け"
-                        android:textColor="#E0E0E0"
-                        android:textSize="14sp" />
+                        android:layout_marginTop="2dp"
+                        android:text="超難問"
+                        android:textColor="#EEFFFFFF"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvLevel5Count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/card_background"
-                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/count_badge"
+                    android:paddingHorizontal="14dp"
                     android:paddingVertical="6dp"
-                    android:textColor="@color/level5"
-                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
                     android:textStyle="bold"
-                    tools:text="12問" />
+                    tools:text="104問" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

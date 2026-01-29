@@ -3,42 +3,80 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Primary Colors - Space Theme -->
-    <color name="primary">#1A237E</color>
-    <color name="primary_dark">#0D1642</color>
-    <color name="primary_light">#3949AB</color>
+    <!-- Space Theme - Deep Space -->
+    <color name="space_black">#050510</color>
+    <color name="space_dark">#0B0B1A</color>
+    <color name="space_purple">#1A1035</color>
+    <color name="space_blue">#0D1B2A</color>
+
+    <!-- Nebula Colors -->
+    <color name="nebula_pink">#E040FB</color>
+    <color name="nebula_purple">#7C4DFF</color>
+    <color name="nebula_blue">#448AFF</color>
+    <color name="nebula_cyan">#18FFFF</color>
+
+    <!-- Star Colors -->
+    <color name="star_white">#FFFFFF</color>
+    <color name="star_yellow">#FFD54F</color>
+    <color name="star_blue">#82B1FF</color>
+    <color name="star_orange">#FFAB40</color>
+
+    <!-- Planet Colors -->
+    <color name="planet_earth">#4FC3F7</color>
+    <color name="planet_mars">#FF7043</color>
+    <color name="planet_jupiter">#FFB74D</color>
+    <color name="planet_saturn">#FFF176</color>
+    <color name="planet_neptune">#5C6BC0</color>
+
+    <!-- Primary Colors -->
+    <color name="primary">#7C4DFF</color>
+    <color name="primary_dark">#1A1035</color>
+    <color name="primary_light">#B388FF</color>
 
     <!-- Accent Colors -->
-    <color name="accent">#7C4DFF</color>
-    <color name="accent_light">#B388FF</color>
+    <color name="accent">#18FFFF</color>
+    <color name="accent_light">#84FFFF</color>
 
-    <!-- Background Colors -->
-    <color name="background_dark">#121212</color>
-    <color name="background_light">#F5F5F5</color>
-    <color name="card_background">#FFFFFF</color>
+    <!-- Background -->
+    <color name="background_dark">#050510</color>
+    <color name="background_card">#151530</color>
+    <color name="background_card_light">#1F1F45</color>
 
     <!-- Status Colors -->
-    <color name="correct_green">#4CAF50</color>
-    <color name="correct_green_light">#E8F5E9</color>
-    <color name="incorrect_red">#F44336</color>
-    <color name="incorrect_red_light">#FFEBEE</color>
+    <color name="correct_green">#69F0AE</color>
+    <color name="correct_green_light">#1B3D2F</color>
+    <color name="incorrect_red">#FF5252</color>
+    <color name="incorrect_red_light">#3D1B1B</color>
 
     <!-- Text Colors -->
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0BEC5</color>
     <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_glow">#18FFFF</color>
 
-    <!-- Level Colors -->
-    <color name="level1">#4CAF50</color>
-    <color name="level2">#8BC34A</color>
-    <color name="level3">#FFC107</color>
-    <color name="level4">#FF9800</color>
-    <color name="level5">#F44336</color>
+    <!-- Level Colors - Cosmic -->
+    <color name="level1">#69F0AE</color>
+    <color name="level2">#40C4FF</color>
+    <color name="level3">#E040FB</color>
+    <color name="level4">#FF6E40</color>
+    <color name="level5">#FF5252</color>
 
-    <!-- Category Colors -->
-    <color name="category_space">#3F51B5</color>
-    <color name="category_physics">#9C27B0</color>
-    <color name="category_chemistry">#00BCD4</color>
-    <color name="category_biology">#4CAF50</color>
-    <color name="category_earth">#795548</color>
+    <!-- Category Colors - Planets -->
+    <color name="category_space">#7C4DFF</color>
+    <color name="category_physics">#E040FB</color>
+    <color name="category_chemistry">#18FFFF</color>
+    <color name="category_biology">#69F0AE</color>
+    <color name="category_earth">#FF7043</color>
+
+    <!-- Glass Effect -->
+    <color name="glass_background">#20FFFFFF</color>
+    <color name="glass_border">#40FFFFFF</color>
+
+    <!-- Card Background -->
+    <color name="card_background">#1A1A40</color>
+
+    <!-- Neon colors for compatibility -->
+    <color name="neon_cyan">#18FFFF</color>
+    <color name="neon_green">#69F0AE</color>
+    <color name="neon_purple">#E040FB</color>
 </resources>
